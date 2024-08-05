@@ -1,5 +1,5 @@
 import { View, Text, ScrollView, TextInput, Image } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import images from "../../constants/images";
 
 const chats = [
@@ -86,6 +86,17 @@ const chats = [
 ];
 
 const Message = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearchChange = (text) => {
+    setSearchQuery(text);
+  };
+
+  // Filter chats based on the search query
+  const filteredChats = chats.filter((chat) =>
+    chat.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <View className="flex-1 bg-white">
       <View className="flex flex-row align-center mt-12 p-5">
@@ -95,13 +106,18 @@ const Message = () => {
         </Text>
       </View>
       <View className="px-4">
-        <View className="flex flex-row items-center bg-gray-200 rounded-full px-4 py-2 mb-4">
-          <TextInput placeholder="Search" className="flex-1 text-lg" />
+        <View className="flex flex-row items-center bg-gray-200 rounded-full px-4 pt-2 pb-3 mb-4">
+          <TextInput
+            placeholder="Search"
+            className="flex-1 text-lg align-items-center"
+            value={searchQuery}
+            onChangeText={handleSearchChange}
+          />
         </View>
       </View>
       <ScrollView className="flex-1">
-      <Text className="px-4 text-xl"> Chats</Text>
-        {chats.map((chat, index) => (
+        <Text className="px-4 text-xl"> Chats</Text>
+        {filteredChats.map((chat, index) => (
           <View key={index} className="flex flex-row items-center mb-4 px-4">
             <Image
               source={chat.image}
