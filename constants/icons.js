@@ -13,5 +13,8 @@ import upload from '../assets/icons/upload.png';
 import home from '../assets/icons/home.png';
 import profile from '../assets/icons/profile.png';
 import retweet from '../assets/icons/retweet.png';
+import comment from '../assets/icons/comment.png';
+import likes_filled from '../assets/icons/likes-filled.png';
+import share from '../assets/icons/share.png';
 
-export default {bookmark, eye_hide, eye, left_arrow, logout, menu, play, plus, right_arrow, search, settings, upload, home, profile, retweet};
+export default  {bookmark, eye_hide, eye, left_arrow, logout, menu, play, plus, right_arrow, search, settings, upload, home, profile, retweet, comment, likes_filled, share};

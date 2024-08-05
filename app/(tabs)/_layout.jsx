@@ -36,10 +36,10 @@ const TabLayout = () => {
           options={{
             title: "Home",
             headerShown: true,
-            headerTitle: "Home",
+            headerTitle: "MUTOO",
             headerTitleAlign: "left",
             headerBackgroundContainerStyle: {
-              height: 73,
+              height: 100,
               borderBottomColor: "black",
               borderBottomWidth: 0.5,
             },
@@ -56,7 +56,7 @@ const TabLayout = () => {
             headerTitle: "Skill Swap",
             headerTitleAlign: "left",
             headerBackgroundContainerStyle: {
-              height: 73,
+              height: 100,
               borderBottomColor: "black",
               borderBottomWidth: 0.5,
             },
@@ -73,7 +73,7 @@ const TabLayout = () => {
             headerTitle: "Profile",
             headerTitleAlign: "left",
             headerBackgroundContainerStyle: {
-              height: 73,
+              height: 100,
               borderBottomColor: "black",
               borderBottomWidth: 0.5,
             },
@@ -86,11 +86,11 @@ const TabLayout = () => {
           name="messages"
           options={{
             title: "Messages",
-            headerShown: true,
+            headerShown: false,
             headerTitle: "Messages",
             headerTitleAlign: "left",
             headerBackgroundContainerStyle: {
-              height: 73,
+              height: 100,
               borderBottomColor: "black",
               borderBottomWidth: 0.5,
             },
