@@ -10,5 +10,8 @@ import right_arrow from '../assets/icons/right-arrow.png';
 import search from '../assets/icons/search.png';
 import settings from '../assets/icons/settings.png';
 import upload from '../assets/icons/upload.png';
+import home from '../assets/icons/home.png';
+import profile from '../assets/icons/profile.png';
+import retweet from '../assets/icons/retweet.png';
 
-export default {bookmark, eye_hide, eye, left_arrow, logout, menu, play, plus, right_arrow, search, settings, upload};
+export default {bookmark, eye_hide, eye, left_arrow, logout, menu, play, plus, right_arrow, search, settings, upload, home, profile, retweet};

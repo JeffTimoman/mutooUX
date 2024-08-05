@@ -6,6 +6,7 @@ import SignInInputForm from "../../components/auth/SignInInputForm";
 import SubmitButton from "../../components/auth/SubmitButton";
 import icons from "../../constants/icons";
 import ContinueWithButton from "../../components/auth/ContinueWithButton";
+import { Link, router } from "expo-router";
 
 const SignIn = () => {
   const [form, setForm] = useState({
@@ -14,15 +15,19 @@ const SignIn = () => {
   });
   const [isSubmit, setIsSubmit] = useState(false);
   const submitForm = () => {
-    if (form.username === "" || form.password === "") {
-      Alert.alert("Please fill in all fields.");
-      return;
-    }
-    if ((form.username.toLocaleLowerCase() == "unregistered" || form.username == "unregistered@gmail.com")){
-      Alert.alert("User not found, try registering instead.");
-      return;
-    }
-  }
+    // if (form.username === "" || form.password === "") {
+    //   Alert.alert("Please fill in all fields.");
+    //   return;
+    // }
+    // if (
+    //   form.username.toLocaleLowerCase() == "unregistered" ||
+    //   form.username == "unregistered@gmail.com"
+    // ) {
+    //   Alert.alert("User not found, try registering instead.");
+    //   return;
+    // }
+    router.push("/home");
+  };
   return (
     <SafeAreaView>
       <ScrollView>
@@ -76,6 +81,14 @@ const SignIn = () => {
               logo={icons.bookmark}
               text="Continue with Apple"
             />
+          </View>
+          <View className="border-t border-gray-700 w-full mt-16 flex items-center w-full opacity-70 ">
+            <Text className="mt-1">
+              {`Still don't have an account? `}
+              <Link href="/sign-up" className="underline decoration-1 ">
+                Register Now
+              </Link>
+            </Text>
           </View>
         </View>
       </ScrollView>
