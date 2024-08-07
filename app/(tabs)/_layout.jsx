@@ -3,7 +3,7 @@ import React from "react";
 import { Tabs } from "expo-router";
 import icons from "../../constants/icons";
 
-const TabIcon = ({ icon, color}) => {
+const TabIcon = ({ icon, color }) => {
   return (
     <View className="flex items-center justify-center gap-2">
       <Image
@@ -27,7 +27,7 @@ const TabLayout = () => {
           tabBarStyle: {
             backgroundColor: "#fff",
 
-            height: 73,
+            height: 83,
           },
         }}
       >
