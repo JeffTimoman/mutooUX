@@ -1,48 +1,58 @@
-
 class Post {
+  constructor(
+    name,
+    username,
+    content,
+    comment,
+    retweet,
+    likes,
+    profile,
+    postimage
+  ) {
+    this.name = name;
+    this.username = username;
+    this.content = content;
+    this.comment = comment;
+    this.retweet = retweet;
+    this.likes = likes;
+    this.profile = profile;
+    this.postimage = postimage;
+  }
+  getName() {
+    return this.name;
+  }
 
-    constructor(username, content, comment, retweet, likes, profile, postimage) {
-        this.username = username;
-        this.content = content;
-        this.comment = comment;
-        this.retweet = retweet;
-        this.likes = likes;
-        this.profile = profile;
-        this.postimage = postimage;
-    }
+  getUsername() {
+    return this.username;
+  }
 
-    getUsername() {
-        return this.username;
-    }
+  getContent() {
+    return this.content;
+  }
 
-    getContent() {
-        return this.content;
-    }
+  getLikes() {
+    return this.likes;
+  }
 
-    getLikes() {
-        return this.likes;
-    }
+  getRetweet() {
+    return this.retweet;
+  }
 
-    getRetweet() {
-        return this.retweet;
-    }
+  getLiked() {
+    return this.liked;
+  }
 
-    getLiked() {
-        return this.liked;
-    }
+  getProfile() {
+    return this.profile;
+  }
 
-    getProfile() {
-        return this.profile;
-    }
+  getComment() {
+    return this.comment;
+  }
 
-    getComment() {
-        return this.comment;
-    }
-
-    getPostImage() {
-        return this.postimage;
-    }
-
+  getPostImage() {
+    return this.postimage;
+  }
 }
 
 export default Post;

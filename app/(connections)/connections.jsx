@@ -1,6 +1,5 @@
 import { View, Text, ScrollView, Image, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
-import { useNavigation } from "@react-navigation/native";
 import { styled } from "nativewind";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import images from "../../constants/images";
@@ -26,8 +25,7 @@ const formatNumber = (number) => {
   }
 };
 
-const Profile = () => {
-  const navigation = useNavigation();
+const Connections = () => {
   const [activeTab, setActiveTab] = useState("Posts");
 
   const connections = {
@@ -327,9 +325,7 @@ const Profile = () => {
     <StyledView className="flex-row justify-around mt-5">
       <TouchableOpacity
         className="flex-1 items-center"
-        onPress={() =>
-          navigation.navigate("Connections", { type: "Followers" })
-        }
+        onPress={() => handleTabPress("Followers")}
       >
         <StyledText className="text-gray-700 text-xl font-bold">
           {formatNumber(connections.followers)}
@@ -358,7 +354,7 @@ const Profile = () => {
   );
 
   return (
-    <>
+    <ScrollView className="bg-white">
       <StyledView className="relative">
         <StyledImage
           source={images.profile_background}
@@ -376,6 +372,7 @@ const Profile = () => {
           </TouchableOpacity>
         </StyledView>
       </StyledView>
+
       <StyledView className="px-5">
         <StyledText className="text-2xl font-bold mt-12">
           Azizi Shafaa A.
@@ -466,48 +463,47 @@ const Profile = () => {
           </TouchableOpacity>
         </StyledView>
       </StyledView>
-      <ScrollView className="bg-white">
-        {activeTab === "Posts" && renderPosts()}
-        {activeTab === "My Skills" && (
-          <StyledView className="mt-10 px-5">
-            <StyledText className="font-bold">Expertize</StyledText>
-            <ScrollView className="flex-row" horizontal={true}>
-              {renderSkills()}
-            </ScrollView>
 
-            <StyledText className="font-bold mt-5">Learning</StyledText>
-            <ScrollView className="flex-row" horizontal={true}>
-              {renderLearning()}
-            </ScrollView>
+      {activeTab === "Posts" && renderPosts()}
+      {activeTab === "My Skills" && (
+        <StyledView className="mt-10 px-5">
+          <StyledText className="font-bold">Expertize</StyledText>
+          <ScrollView className="flex-row" horizontal={true}>
+            {renderSkills()}
+          </ScrollView>
 
-            <StyledText className="font-bold mt-5">Wishlist</StyledText>
-            <ScrollView className="flex-row" horizontal={true}>
-              {renderWishlist()}
-            </ScrollView>
-          </StyledView>
-        )}
-        {activeTab === "Recent Swap" && (
-          <StyledView className="mt-10 px-5">
-            <StyledText className="font-bold">Today</StyledText>
-            <ScrollView className="flex-row" horizontal={true}>
-              {renderRecent(recentToday)}
-            </ScrollView>
+          <StyledText className="font-bold mt-5">Learning</StyledText>
+          <ScrollView className="flex-row" horizontal={true}>
+            {renderLearning()}
+          </ScrollView>
 
-            <StyledText className="font-bold mt-5">This Week</StyledText>
-            <ScrollView className="flex-row" horizontal={true}>
-              {renderRecent(recentWeek)}
-            </ScrollView>
+          <StyledText className="font-bold mt-5">Wishlist</StyledText>
+          <ScrollView className="flex-row" horizontal={true}>
+            {renderWishlist()}
+          </ScrollView>
+        </StyledView>
+      )}
+      {activeTab === "Recent Swap" && (
+        <StyledView className="mt-10 px-5">
+          <StyledText className="font-bold">Today</StyledText>
+          <ScrollView className="flex-row" horizontal={true}>
+            {renderRecent(recentToday)}
+          </ScrollView>
 
-            <StyledText className="font-bold mt-5">This Month</StyledText>
-            <ScrollView className="flex-row" horizontal={true}>
-              {renderRecent(recentMonth)}
-            </ScrollView>
-          </StyledView>
-        )}
-        {activeTab === "Likes" && renderLikes()}
-      </ScrollView>
-    </>
+          <StyledText className="font-bold mt-5">This Week</StyledText>
+          <ScrollView className="flex-row" horizontal={true}>
+            {renderRecent(recentWeek)}
+          </ScrollView>
+
+          <StyledText className="font-bold mt-5">This Month</StyledText>
+          <ScrollView className="flex-row" horizontal={true}>
+            {renderRecent(recentMonth)}
+          </ScrollView>
+        </StyledView>
+      )}
+      {activeTab === "Likes" && renderLikes()}
+    </ScrollView>
   );
 };
 
-export default Profile;
+export default Connections;

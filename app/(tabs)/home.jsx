@@ -30,6 +30,7 @@ const Home = () => {
   const posts = [];
   posts.push(
     new Post(
+      "Cucurella",
       "cucurella",
       "GUYSS, Mauuu ceritaaa! Jadi kemarin tuh aku mau olahraga nah tapiii aku gampang bosenan nii olahraganyaa...",
       314000,
@@ -41,6 +42,7 @@ const Home = () => {
   );
   posts.push(
     new Post(
+      "Caramela Hadid",
       "caramelaHadid",
       "GUYSS, Mauuu ceritaaa! Jadi kemarin tuh aku mau olahraga nah tapi...",
       314000,
@@ -52,6 +54,7 @@ const Home = () => {
   );
   posts.push(
     new Post(
+      "Cucurella",
       "cucurella",
       "GUYSS, Mauuu ceritaaa! Jadi kemarin tuh aku mau olahraga nah tapiii aku gampang bosenan nii olahraganyaa...",
       314000,
@@ -63,6 +66,7 @@ const Home = () => {
   );
   posts.push(
     new Post(
+      "Cucurella",
       "cucurella",
       "GUYSS, Mauuu ceritaaa! Jadi kemarin tuh aku mau olahraga nah tapiii aku gampang bosenan nii olahraganyaa...",
       314000,
@@ -74,6 +78,7 @@ const Home = () => {
   );
   posts.push(
     new Post(
+      "Caramela Hadid",
       "caramelaHadid",
       "GUYSS, Mauuu ceritaaa! Jadi kemarin tuh aku mau olahraga nah tapi...",
       314000,
@@ -85,6 +90,7 @@ const Home = () => {
   );
   posts.push(
     new Post(
+      "Cucurella",
       "cucurella",
       "GUYSS, Mauuu ceritaaa! Jadi kemarin tuh aku mau olahraga nah tapiii aku gampang bosenan nii olahraganyaa...",
       314000,
@@ -96,6 +102,7 @@ const Home = () => {
   );
   posts.push(
     new Post(
+      "Cucurella",
       "cucurella",
       "GUYSS, Mauuu ceritaaa! Jadi kemarin tuh aku mau olahraga nah tapiii aku gampang bosenan nii olahraganyaa...",
       314000,
@@ -107,6 +114,7 @@ const Home = () => {
   );
   posts.push(
     new Post(
+      "Caramela Hadid",
       "caramelaHadid",
       "GUYSS, Mauuu ceritaaa! Jadi kemarin tuh aku mau olahraga nah tapi...",
       314000,
@@ -118,6 +126,7 @@ const Home = () => {
   );
   posts.push(
     new Post(
+      "Caramela Hadid",
       "cucurella",
       "GUYSS, Mauuu ceritaaa! Jadi kemarin tuh aku mau olahraga nah tapiii aku gampang bosenan nii olahraganyaa...",
       314000,
@@ -137,10 +146,19 @@ const Home = () => {
         >
           <Image className="w-10 h-10" source={images[post.profile]} />
           <View className="flex-col ml-4 pt-1">
-            <Text className="font-bold text-base">@{post.getUsername()}</Text>
+            <StyledView className="flex-row items-center">
+              <StyledText className="font-bold text-base">
+                {post.getName()}
+              </StyledText>
+              <StyledText className="font-semibold text-base ml-2 opacity-50">
+                @{post.getUsername()}
+              </StyledText>
+            </StyledView>
             <Text className="text-gray-600 mt-1 w-full max-w-[75vw] text-base">
               {post.getContent()}
-              <Link href="/home" className="text-blue-400">Show More</Link>
+              <Link href="/home" className="text-blue-400">
+                Show More
+              </Link>
             </Text>
             {post.getPostImage() ? (
               <Image
