@@ -1,508 +1,224 @@
-import { View, Text, ScrollView, Image, TouchableOpacity } from "react-native";
-import React, { useState } from "react";
-import { styled } from "nativewind";
-import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+import React, { useState, useEffect } from "react";
+import { View, Text, TouchableOpacity, FlatList, Image } from "react-native";
+import { FontAwesome } from "@expo/vector-icons";
+import { useRouter, useLocalSearchParams } from "expo-router";
 import images from "../../constants/images";
 import icons from "../../constants/icons";
-import Post from "../../constants/classes/Post";
+import User from "../../constants/classes/User";
 
-const StyledView = styled(View);
-const StyledText = styled(Text);
-const StyledImage = styled(Image);
-
-const formatNumber = (number) => {
-  if (number === undefined || number === null) {
-    return "0";
-  }
-  if (number >= 1000000000) {
-    return (number / 1000000000).toFixed(0) + "B";
-  } else if (number >= 1000000) {
-    return (number / 1000000).toFixed(0) + "M";
-  } else if (number >= 1000) {
-    return (number / 1000).toFixed(0) + "K";
-  } else {
-    return number.toString();
-  }
-};
+const tabs = ["Followers", "Following", "Swappers"];
 
 const Connections = () => {
-  const [activeTab, setActiveTab] = useState("Posts");
+  const router = useRouter();
+  const { tab } = useLocalSearchParams(); // Get the tab parameter from the route
+  const [selectedTab, setSelectedTab] = useState(tab || "Followers");
 
-  const connections = {
-    following: 1403,
-    followers: 2400000,
-    swappers: 17,
+  const [followersData, setFollowersData] = useState([
+    new User("Nick Mathew", "niickmathew", images.nick, true, true, false),
+    new User("Jane Doe", "janedoe", images.userpic1, false, true, false),
+    new User("Alice Johnson", "alicej", images.userpic2, false, true, false),
+    new User("Michael Smith", "mikesmith", images.userpic3, true, true, false),
+    new User("Sarah Connor", "sconnor", images.widi, true, true, false),
+    new User("David Brown", "dbrown", images.zeepic, false, true, false),
+    new User("Chris Evans", "cevans", images.zeepic1, false, true, false),
+    new User("Emily White", "ewhite", images.batamis, false, true, false),
+    new User(
+      "Robert Pattinson",
+      "rpattinson",
+      images.artemians,
+      false,
+      true,
+      false
+    ),
+    new User("Emma Watson", "ewatson", images.cibitung, false, true, false),
+    new User("Daniel Radcliffe", "dradcliffe", images.josh, false, true, false),
+  ]);
+
+  const [followingData, setFollowingData] = useState([
+    new User("Nick Mathew", "niickmathew", images.nick, true, true, false),
+    new User("Michael Smith", "mikesmith", images.userpic3, true, true, false),
+    new User("Sarah Connor", "sconnor", images.widi, true, true, false),
+    new User("David Brown", "dbrown", images.zeepic, true, true, false),
+    new User("Chris Evans", "cevans", images.zeepic1, true, true, false),
+    new User("Emily White", "ewhite", images.batamis, true, true, false),
+    new User(
+      "Robert Pattinson",
+      "rpattinson",
+      images.artemians,
+      true,
+      true,
+      false
+    ),
+    new User("Emma Watson", "ewatson", images.cibitung, true, true, false),
+    new User("Daniel Radcliffe", "dradcliffe", images.josh, true, true, false),
+    new User("Mark Ruffalo", "mruffalo", images.nick, true, true, false),
+    new User(
+      "Scarlett Johansson",
+      "sjohansson",
+      images.userpic1,
+      true,
+      true,
+      false
+    ),
+  ]);
+
+  const [swappersData, setSwappersData] = useState([
+    new User("Nick Mathew", "niickmathew", images.nick, true, false, true),
+    new User("Jane Doe", "janedoe", images.userpic1, true, false, true),
+    new User("Alice Johnson", "alicej", images.userpic2, true, false, true),
+    new User("Michael Smith", "mikesmith", images.userpic3, true, false, true),
+    new User("Sarah Connor", "sconnor", images.widi, true, false, true),
+    new User("David Brown", "dbrown", images.zeepic, true, false, true),
+    new User("Chris Evans", "cevans", images.zeepic1, true, false, true),
+    new User("Emily White", "ewhite", images.batamis, true, false, true),
+    new User(
+      "Robert Pattinson",
+      "rpattinson",
+      images.artemians,
+      true,
+      false,
+      true
+    ),
+    new User("Emma Watson", "ewatson", images.cibitung, true, false, true),
+    new User("Daniel Radcliffe", "dradcliffe", images.josh, true, false, true),
+    new User("Tom Holland", "tholland", images.nick, true, false, true),
+    new User(
+      "Chris Hemsworth",
+      "chemsworth",
+      images.userpic1,
+      true,
+      false,
+      true
+    ),
+  ]);
+
+  useEffect(() => {
+    if (tab) {
+      setSelectedTab(tab); // Update the selected tab based on the passed parameter
+    }
+  }, [tab]);
+
+  const getData = () => {
+    switch (selectedTab) {
+      case "Following":
+        return followingData;
+      case "Swappers":
+        return swappersData;
+      default:
+        return followersData;
+    }
   };
 
-  const posts = [
-    new Post(
-      "Azizi Shafaa A.",
-      "aziziasadel_",
-      "Haloo, udah malem nih, km ga bobo?",
-      314000,
-      29500,
-      150000000,
-      "zeepic",
-      null
-    ),
-    new Post(
-      "Azizi Shafaa A.",
-      "aziziasadel_",
-      "GUYSS, Mauuu ceritaaa! Jadi kemarin tuh aku mau olahraga nah tapi ada Monty... Jadi aku kabur deh, soalnya kan #WASPADAMONTY",
-      314000,
-      29500,
-      150000000,
-      "zeepic",
-      null
-    ),
-    new Post(
-      "Azizi Shafaa A.",
-      "aziziasadel_",
-      "3 Musketeer 🤭🤭🤭",
-      314000,
-      29500,
-      150000000,
-      "zeepic",
-      "post1"
-    ),
-    new Post(
-      "Azizi Shafaa A.",
-      "aziziasadel_",
-      "Pagi yang cerah, semangat pagi!",
-      314000,
-      29500,
-      150000000,
-      "zeepic",
-      "zeepic1"
-    ),
-  ];
+  const toggleFollow = (username) => {
+    // Update the state for the relevant tab
+    const updateData = (data, setData) => {
+      const updatedData = data.map((user) => {
+        if (user.getUsername() === username) {
+          return new User(
+            user.getName(),
+            user.getUsername(),
+            user.getProfile(),
+            !user.getIsFollowing(), // Toggle following status
+            user.getIsFollowers(),
+            user.getIsSwappers()
+          );
+        }
+        return user;
+      });
+      setData(updatedData);
+    };
 
-  const likedPosts = [
-    new Post(
-      "Nick Mathew",
-      "niickmathew",
-      "Day 1! Let's go! #PEJUANGCIBITUNG",
-      541,
-      143,
-      24321,
-      "nick",
-      "cibitung"
-    ),
-    new Post(
-      "Nick Mathew",
-      "niickmathew",
-      "Sehat-Sehat Kalian Semua! #WASPADAMONTY",
-      1200,
-      300,
-      5000,
-      "nick",
-      "batamis"
-    ),
-    new Post(
-      "Marcelino Joshua",
-      "joshua__",
-      "Bakal kangen Widiancok nih! #H-2",
-      123,
-      3022,
-      2432,
-      "josh",
-      "widi"
-    ),
-    new Post(
-      "Nick Mathew",
-      "niickmathew",
-      "❤️❤️❤️",
-      123,
-      3022,
-      2432,
-      "nick",
-      "artemians"
-    ),
-  ];
+    switch (selectedTab) {
+      case "Following":
+        updateData(followingData, setFollowingData);
+        break;
+      case "Swappers":
+        updateData(swappersData, setSwappersData);
+        break;
+      default:
+        updateData(followersData, setFollowersData);
+        break;
+    }
+  };
 
-  const skills = [
-    { skill: "Fencing", masteredSince: "2018" },
-    { skill: "Cooking", masteredSince: "2013" },
-    { skill: "Roasting", masteredSince: "Born" },
-    { skill: "Analyzing", masteredSince: "2019" },
-    { skill: "Swimming", masteredSince: "2020" },
-  ];
-
-  const learning = [
-    { skill: "Tennis", learningFor: "3" },
-    { skill: "Muay Thai", learningFor: "5" },
-    { skill: "Singing", learningFor: "" },
-  ];
-
-  const wishlist = [
-    { skill: "Hacking", listedFrom: "4" },
-    { skill: "Coding", listedFrom: "7" },
-    { skill: "Sky Diving", listedFrom: "Born" },
-    { skill: "Bullying", listedFrom: "15" },
-  ];
-
-  const recentToday = [
-    { name: "Nick Mathew", username: "@niickmathew" },
-    { name: "Marcelino Joshua", username: "@joshua__" },
-  ];
-
-  const recentWeek = [
-    ...recentToday,
-    { name: "Mirzha Chaerani", username: "@mirzhachrn_" },
-    { name: "Clarensia Novia", username: "@clarennov" },
-  ];
-
-  const recentMonth = [
-    ...recentWeek,
-    { name: "Jefferson Timotius M.", username: "@jefftimoman" },
-  ];
-
-  const handleTabPress = (tab) => setActiveTab(tab);
-
-  const renderPosts = () =>
-    posts.map((post, index) => (
-      <StyledView
-        key={index}
-        className="flex-row px-5 pt-2 pb-1 bg-white border-b border-gray-300 w-screen"
-      >
-        <StyledImage
-          className="w-10 h-10 rounded-full"
-          source={images[post.getProfile()]}
+  const renderItem = ({ item }) => (
+    <View className="flex-row justify-between items-center my-2">
+      <View className="flex-row items-center">
+        <Image
+          source={item.getProfile()}
+          className="w-10 h-10 rounded-full mr-2"
         />
-        <StyledView className="flex-col ml-4 pt-1">
-          <StyledView className="flex-row items-center">
-            <StyledText className="font-bold text-base">
-              {post.getName()}
-            </StyledText>
-            <StyledText className="font-semibold text-base ml-2 opacity-50">
-              @{post.getUsername()}
-            </StyledText>
-          </StyledView>
-          <StyledText className="text-gray-600 mt-1 w-full max-w-[75vw] text-base">
-            {post.getContent()}{" "}
-          </StyledText>
-          {post.getPostImage() && (
-            <StyledImage
-              className="w-[75vw] h-[150px] mt-2 rounded-lg"
-              source={images[post.getPostImage()]}
-              resizeMethod="contain"
-            />
-          )}
-          <StyledView className="flex-row mt-2 justify-between w-[220px]">
-            <StyledView className="flex-row items-center">
-              <StyledImage source={icons.comment} className="w-5 h-5 mr-1" />
-              <StyledText className="text-gray-700">
-                {formatNumber(post.getComment())}
-              </StyledText>
-            </StyledView>
-            <StyledView className="flex-row items-center">
-              <StyledImage source={icons.retweet} className="w-4 h-4 mr-1" />
-              <StyledText className="text-gray-700">
-                {formatNumber(post.getRetweet())}
-              </StyledText>
-            </StyledView>
-            <StyledView className="flex-row items-center">
-              <StyledImage
-                source={icons.likes_filled}
-                className="w-4 h-4 mr-1"
-              />
-              <StyledText className="text-pink-700">
-                {formatNumber(post.getLikes())}
-              </StyledText>
-            </StyledView>
-            <StyledImage source={icons.share} className="w-4 h-4" />
-          </StyledView>
-        </StyledView>
-      </StyledView>
-    ));
-
-  const renderLikes = () =>
-    likedPosts.map((post, index) => (
-      <StyledView
-        key={index}
-        className="flex-row px-5 pt-2 pb-1 bg-white border-b border-gray-300 w-full"
+        <View>
+          <Text className="text-base font-semibold">{item.getName()}</Text>
+          <Text className="text-gray-500">@{item.getUsername()}</Text>
+        </View>
+      </View>
+      <TouchableOpacity
+        onPress={() => toggleFollow(item.getUsername())}
+        className={`px-4 py-2 border ${
+          item.getIsFollowing()
+            ? "bg-[#2f27ce] border-[#2f27ce]"
+            : "border-[#2f27ce]"
+        } rounded-full flex-row items-center`}
       >
-        <StyledImage
-          className="w-10 h-10 rounded-full"
-          source={images[post.getProfile()]}
+        <Text
+          className={`${
+            item.getIsFollowing() ? "text-white" : "text-blue-600"
+          } font-semibold`}
+        >
+          {item.getIsFollowing() ? "Following" : "Follow"}
+        </Text>
+        <Image
+          source={item.getIsFollowing() ? icons.check : icons.add}
+          className="w-auto h-4"
         />
-        <StyledView className="flex-col ml-4 pt-1">
-          <StyledView className="flex-row items-center">
-            <StyledText className="font-bold text-base">
-              {post.getName()}
-            </StyledText>
-            <StyledText className="font-semibold text-base ml-2 opacity-50">
-              @{post.getUsername()}
-            </StyledText>
-          </StyledView>
-          <StyledText className="text-gray-600 mt-1 w-full max-w-[75vw] text-base">
-            {post.getContent()}{" "}
-          </StyledText>
-          {post.getPostImage() && (
-            <StyledImage
-              className="w-[75vw] h-[150px] mt-2 rounded-lg"
-              source={images[post.getPostImage()]}
-              resizeMethod="contain"
-            />
-          )}
-          <StyledView className="flex-row mt-2 justify-between w-[220px]">
-            <StyledView className="flex-row items-center">
-              <StyledImage source={icons.comment} className="w-5 h-5 mr-1" />
-              <StyledText className="text-gray-700">
-                {formatNumber(post.getComment())}
-              </StyledText>
-            </StyledView>
-            <StyledView className="flex-row items-center">
-              <StyledImage source={icons.retweet} className="w-4 h-4 mr-1" />
-              <StyledText className="text-gray-700">
-                {formatNumber(post.getRetweet())}
-              </StyledText>
-            </StyledView>
-            <StyledView className="flex-row items-center">
-              <StyledImage
-                source={icons.likes_filled}
-                className="w-4 h-4 mr-1"
-              />
-              <StyledText className="text-pink-700">
-                {formatNumber(post.getLikes())}
-              </StyledText>
-            </StyledView>
-            <StyledImage source={icons.share} className="w-4 h-4" />
-          </StyledView>
-        </StyledView>
-      </StyledView>
-    ));
-
-  const renderSkills = () =>
-    skills.map((skill, index) => (
-      <StyledView key={index} className="border-2 p-2 mt-2 mx-2 rounded">
-        <StyledText className="text-gray-700 pl-1 pr-4 mb-2 font-extrabold">
-          {skill.skill}
-        </StyledText>
-        <StyledText className="text-gray-700 pl-1 pr-4 my-2">
-          Mastered Since {skill.masteredSince}
-        </StyledText>
-      </StyledView>
-    ));
-
-  const renderLearning = () =>
-    learning.map((skill, index) => (
-      <StyledView key={index} className="border-2 p-2 mt-2 mx-2 rounded">
-        <StyledText className="text-gray-700 pl-1 pr-4 mb-2 font-extrabold">
-          {skill.skill}
-        </StyledText>
-        <StyledText className="text-gray-700 pl-1 pr-4 my-2">
-          Currently learning for {skill.learningFor} month(s)
-        </StyledText>
-      </StyledView>
-    ));
-
-  const renderWishlist = () =>
-    wishlist.map((skill, index) => (
-      <StyledView key={index} className="border-2 p-2 mt-2 mx-2 rounded">
-        <StyledText className="text-gray-700 pl-1 pr-4 mb-2 font-extrabold">
-          {skill.skill}
-        </StyledText>
-        <StyledText className="text-gray-700 pl-1 pr-4 my-2">
-          Listed from {skill.listedFrom} month(s) ago
-        </StyledText>
-      </StyledView>
-    ));
-
-  const renderRecent = (recentItems) =>
-    recentItems.map((recent, index) => (
-      <StyledView key={index} className="border-2 p-2 mt-2 mx-2 rounded">
-        <StyledText className="text-gray-700 pl-1 pr-4 mb-2 font-extrabold">
-          {recent.name}
-        </StyledText>
-        <StyledText className="text-gray-700 pl-1 pr-4 my-2">
-          {recent.username}
-        </StyledText>
-      </StyledView>
-    ));
-
-  const renderConnections = () => (
-    <StyledView className="flex-row justify-around mt-5">
-      <TouchableOpacity
-        className="flex-1 items-center"
-        onPress={() => handleTabPress("Followers")}
-      >
-        <StyledText className="text-gray-700 text-xl font-bold">
-          {formatNumber(connections.followers)}
-        </StyledText>
-        <StyledText className="text-gray-500">Followers</StyledText>
       </TouchableOpacity>
-      <TouchableOpacity
-        className="flex-1 items-center"
-        onPress={() => handleTabPress("Following")}
-      >
-        <StyledText className="text-gray-700 text-xl font-bold">
-          {formatNumber(connections.following)}
-        </StyledText>
-        <StyledText className="text-gray-500">Following</StyledText>
-      </TouchableOpacity>
-      <TouchableOpacity
-        className="flex-1 items-center"
-        onPress={() => handleTabPress("Swappers")}
-      >
-        <StyledText className="text-gray-700 text-xl font-bold">
-          {formatNumber(connections.swappers)}
-        </StyledText>
-        <StyledText className="text-gray-500">Swappers</StyledText>
-      </TouchableOpacity>
-    </StyledView>
+    </View>
   );
 
   return (
-    <ScrollView className="bg-white">
-      <StyledView className="relative">
-        <StyledImage
-          source={images.profile_background}
-          className="w-full h-40"
-        />
-        <StyledView className="absolute top-24 left-5 flex-row items-center justify-between w-full">
-          <StyledImage
-            source={images.zeepic}
-            className="w-24 h-24 rounded-full border-4 border-white"
-          />
-          <TouchableOpacity className="bg-gray-200 py-2 px-4 rounded-full mt-20 mr-10">
-            <StyledText className="text-gray-700 font-bold">
-              Edit Profile
-            </StyledText>
-          </TouchableOpacity>
-        </StyledView>
-      </StyledView>
-
-      <StyledView className="px-5">
-        <StyledText className="text-2xl font-bold mt-12">
-          Azizi Shafaa A.
-        </StyledText>
-        <StyledText className="text-gray-600">@aziziasadel_</StyledText>
-        <StyledView className="flex-row mt-2">
-          <StyledText className="text-gray-700 mr-5">
-            <MaterialIcons name="calendar-today" size={16} color="black" />{" "}
-            Joined May 14th 2018
-          </StyledText>
-          <StyledText className="text-gray-700">
-            <Ionicons name="star" size={16} color="black" /> 5 Skills Mastered
-          </StyledText>
-        </StyledView>
-
-        {renderConnections()}
-
-        <StyledView className="flex-row mt-5 border-b-2 border-gray-300 w-[100vw] left-[-20px]">
+    <View className="flex-1 bg-white">
+      <View className="flex-row items-center px-4 py-2 relative">
+        <TouchableOpacity
+          onPress={() => router.back()}
+          className="absolute left-0 p-4 z-10"
+          style={{ zIndex: 1 }}
+        >
+          <FontAwesome name="chevron-left" size={24} color="black" />
+        </TouchableOpacity>
+        <View className="flex-1 items-center gap-2">
+          <Text className="text-xl font-bold">Azizi Shafaa A.</Text>
+          <Text className="text-gray-600 text-[18px] font-bold mb-[2px]">
+            Lists
+          </Text>
+        </View>
+      </View>
+      <View className="flex-row justify-between px-4 my-3 border-b border-gray-200">
+        {tabs.map((tab) => (
           <TouchableOpacity
-            onPress={() => handleTabPress("Posts")}
-            className="flex-1"
+            key={tab}
+            onPress={() => setSelectedTab(tab)}
+            className={`flex-1 items-center pb-2 ${
+              selectedTab === tab ? "border-b-2 border-[#2f27ce]" : ""
+            }`}
           >
-            <StyledView className="relative items-center">
-              <StyledText
-                className={`font-bold text-center py-2 ${
-                  activeTab === "Posts" ? "text-[#2f27ce]" : "text-gray-700"
-                }`}
-              >
-                Posts
-              </StyledText>
-              {activeTab === "Posts" && (
-                <StyledView className="absolute bottom-0 left-0 right-0 h-1 bg-[#2f27ce]" />
-              )}
-            </StyledView>
+            <Text
+              className={`${
+                selectedTab === tab ? "text-[#2f27ce]" : "text-gray-500"
+              } font-bold text-[16px]`}
+            >
+              {tab}
+            </Text>
           </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => handleTabPress("My Skills")}
-            className="flex-1"
-          >
-            <StyledView className="relative items-center">
-              <StyledText
-                className={`font-bold text-center py-2 ${
-                  activeTab === "My Skills" ? "text-[#2f27ce]" : "text-gray-700"
-                }`}
-              >
-                My Skills
-              </StyledText>
-              {activeTab === "My Skills" && (
-                <StyledView className="absolute bottom-0 left-0 right-0 h-1 bg-[#2f27ce]" />
-              )}
-            </StyledView>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => handleTabPress("Recent Swap")}
-            className="flex-1"
-          >
-            <StyledView className="relative items-center">
-              <StyledText
-                className={`font-bold text-center py-2 ${
-                  activeTab === "Recent Swap"
-                    ? "text-[#2f27ce]"
-                    : "text-gray-700"
-                }`}
-              >
-                Recent Swap
-              </StyledText>
-              {activeTab === "Recent Swap" && (
-                <StyledView className="absolute bottom-0 left-0 right-0 h-1 bg-[#2f27ce]" />
-              )}
-            </StyledView>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => handleTabPress("Likes")}
-            className="flex-1"
-          >
-            <StyledView className="relative items-center">
-              <StyledText
-                className={`font-bold text-center py-2 ${
-                  activeTab === "Likes" ? "text-[#2f27ce]" : "text-gray-700"
-                }`}
-              >
-                Likes
-              </StyledText>
-              {activeTab === "Likes" && (
-                <StyledView className="absolute bottom-0 left-0 right-0 h-1 bg-[#2f27ce]" />
-              )}
-            </StyledView>
-          </TouchableOpacity>
-        </StyledView>
-      </StyledView>
-
-      {activeTab === "Posts" && renderPosts()}
-      {activeTab === "My Skills" && (
-        <StyledView className="mt-10 px-5">
-          <StyledText className="font-bold">Expertize</StyledText>
-          <ScrollView className="flex-row" horizontal={true}>
-            {renderSkills()}
-          </ScrollView>
-
-          <StyledText className="font-bold mt-5">Learning</StyledText>
-          <ScrollView className="flex-row" horizontal={true}>
-            {renderLearning()}
-          </ScrollView>
-
-          <StyledText className="font-bold mt-5">Wishlist</StyledText>
-          <ScrollView className="flex-row" horizontal={true}>
-            {renderWishlist()}
-          </ScrollView>
-        </StyledView>
-      )}
-      {activeTab === "Recent Swap" && (
-        <StyledView className="mt-10 px-5">
-          <StyledText className="font-bold">Today</StyledText>
-          <ScrollView className="flex-row" horizontal={true}>
-            {renderRecent(recentToday)}
-          </ScrollView>
-
-          <StyledText className="font-bold mt-5">This Week</StyledText>
-          <ScrollView className="flex-row" horizontal={true}>
-            {renderRecent(recentWeek)}
-          </ScrollView>
-
-          <StyledText className="font-bold mt-5">This Month</StyledText>
-          <ScrollView className="flex-row" horizontal={true}>
-            {renderRecent(recentMonth)}
-          </ScrollView>
-        </StyledView>
-      )}
-      {activeTab === "Likes" && renderLikes()}
-    </ScrollView>
+        ))}
+      </View>
+      <FlatList
+        data={getData()}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.username}
+        contentContainerStyle={{ paddingHorizontal: 16, paddingTop: 8 }}
+      />
+    </View>
   );
 };
 

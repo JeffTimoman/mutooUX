@@ -69,7 +69,7 @@ const TabLayout = () => {
           name="profile"
           options={{
             title: "Profile",
-            headerShown: true,
+            headerShown: false,
             headerTitle: "Profile",
             headerTitleAlign: "left",
             headerBackgroundContainerStyle: {
@@ -103,7 +103,7 @@ const TabLayout = () => {
           name="settings"
           options={{
             title: "Settings",
-            headerShown: true,
+            headerShown: false,
             headerTitle: "Settings",
             headerTitleAlign: "left",
             headerBackgroundContainerStyle: {

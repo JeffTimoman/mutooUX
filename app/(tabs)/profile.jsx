@@ -6,6 +6,8 @@ import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import images from "../../constants/images";
 import icons from "../../constants/icons";
 import Post from "../../constants/classes/Post";
+import { router } from "expo-router";
+import AccountInformation from "../(settings)/accountInformation";
 
 const StyledView = styled(View);
 const StyledText = styled(Text);
@@ -328,7 +330,7 @@ const Profile = () => {
       <TouchableOpacity
         className="flex-1 items-center"
         onPress={() =>
-          navigation.navigate("Connections", { type: "Followers" })
+          router.push({ pathname: "connections", params: { tab: "Followers" } })
         }
       >
         <StyledText className="text-gray-700 text-xl font-bold">
@@ -338,7 +340,9 @@ const Profile = () => {
       </TouchableOpacity>
       <TouchableOpacity
         className="flex-1 items-center"
-        onPress={() => handleTabPress("Following")}
+        onPress={() =>
+          router.push({ pathname: "connections", params: { tab: "Following" } })
+        }
       >
         <StyledText className="text-gray-700 text-xl font-bold">
           {formatNumber(connections.following)}
@@ -347,10 +351,12 @@ const Profile = () => {
       </TouchableOpacity>
       <TouchableOpacity
         className="flex-1 items-center"
-        onPress={() => handleTabPress("Swappers")}
+        onPress={() =>
+          router.push({ pathname: "connections", params: { tab: "Swappers" } })
+        }
       >
         <StyledText className="text-gray-700 text-xl font-bold">
-          {formatNumber(connections.swappers)}
+          {formatNumber(connections.followers)}
         </StyledText>
         <StyledText className="text-gray-500">Swappers</StyledText>
       </TouchableOpacity>
@@ -369,7 +375,10 @@ const Profile = () => {
             source={images.zeepic}
             className="w-24 h-24 rounded-full border-4 border-white"
           />
-          <TouchableOpacity className="bg-gray-200 py-2 px-4 rounded-full mt-20 mr-10">
+          <TouchableOpacity
+            className="bg-gray-200 py-2 px-4 rounded-full mt-20 mr-10"
+            onPress={router.push("accountinformation")}
+          >
             <StyledText className="text-gray-700 font-bold">
               Edit Profile
             </StyledText>

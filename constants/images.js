@@ -14,12 +14,14 @@ import widi from "../assets/images/widi.jpg";
 import artemians from "../assets/images/artemians.jpg";
 import cibitung from "../assets/images/cibitung.jpg";
 import josh from "../assets/images/josh.jpg";
+import helpcarousel from "../assets/images/helpcarousel.png";
 
 export default {
   logo,
   cards,
   profile_background,
   swipe_left_continue,
+  helpcarousel,
   userpic1,
   userpic2,
   post1,
