@@ -115,8 +115,8 @@ const Message = () => {
           />
         </View>
       </View>
-      <ScrollView className="flex-1">
-        <Text className="px-4 text-xl"> Chats</Text>
+      <ScrollView className="flex-1 mt-1">
+        <Text className="px-4 text-xl mb-1"> Chats</Text>
         {filteredChats.map((chat, index) => (
           <View key={index} className="flex flex-row items-center mb-4 px-4">
             <Image

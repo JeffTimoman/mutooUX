@@ -6,4 +6,32 @@ import userpic1 from "../assets/images/userpic1.png";
 import userpic2 from "../assets/images/userpic2.png";
 import post1 from "../assets/images/post1.png";
 import userpic3 from "../assets/images/userpic3.png";
-export default {logo, cards, profile_background, swipe_left_continue, userpic1, userpic2, post1, userpic3};
+import zeepic from "../assets/images/Zee_2.png";
+import zeepic1 from "../assets/images/Zee.png";
+import nick from "../assets/images/nick.jpg";
+import batamis from "../assets/images/batamis.jpg";
+import widi from "../assets/images/widi.jpg";
+import artemians from "../assets/images/artemians.jpg";
+import cibitung from "../assets/images/cibitung.jpg";
+import josh from "../assets/images/josh.jpg";
+import helpcarousel from "../assets/images/helpcarousel.png";
+
+export default {
+  logo,
+  cards,
+  profile_background,
+  swipe_left_continue,
+  helpcarousel,
+  userpic1,
+  userpic2,
+  post1,
+  userpic3,
+  zeepic,
+  zeepic1,
+  nick,
+  batamis,
+  widi,
+  artemians,
+  cibitung,
+  josh,
+};

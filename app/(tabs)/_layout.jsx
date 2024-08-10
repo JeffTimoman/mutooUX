@@ -3,7 +3,7 @@ import React from "react";
 import { Tabs } from "expo-router";
 import icons from "../../constants/icons";
 
-const TabIcon = ({ icon, color}) => {
+const TabIcon = ({ icon, color }) => {
   return (
     <View className="flex items-center justify-center gap-2">
       <Image
@@ -27,7 +27,7 @@ const TabLayout = () => {
           tabBarStyle: {
             backgroundColor: "#fff",
 
-            height: 73,
+            height: 83,
           },
         }}
       >
@@ -69,7 +69,7 @@ const TabLayout = () => {
           name="profile"
           options={{
             title: "Profile",
-            headerShown: true,
+            headerShown: false,
             headerTitle: "Profile",
             headerTitleAlign: "left",
             headerBackgroundContainerStyle: {
@@ -103,7 +103,7 @@ const TabLayout = () => {
           name="settings"
           options={{
             title: "Settings",
-            headerShown: true,
+            headerShown: false,
             headerTitle: "Settings",
             headerTitleAlign: "left",
             headerBackgroundContainerStyle: {
