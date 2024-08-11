@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, Image, Alert } from "react-native";
+import { View, Text, ScrollView, Image, Alert, KeyboardAvoidingView, Platform} from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import images from "../../constants/images";
@@ -45,7 +45,12 @@ const SignUp = () => {
   };
 
   return (
-    <SafeAreaView>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={{ flex: 1 }}
+      keyboardVerticalOffset={Platform.select({ ios: 0, android: 500 })}
+      className="flex-1 bg-white h-full w-full justify-center mt-3"
+    >
       <ScrollView>
         <View className="w-full flex justify-center items-center h-[85vh] px-4 my-6">
           <Image
@@ -107,11 +112,11 @@ const SignUp = () => {
           </View>
           <View className="justify-center items-center mt-2">
             <ContinueWithButton
-              logo={icons.bookmark}
+              logo={icons.google}
               text="Continue with Google"
             />
-            <ContinueWithButton logo={icons.bookmark} text="Continue with Meta" />
-            <ContinueWithButton logo={icons.bookmark} text="Continue with Apple" />
+            <ContinueWithButton logo={icons.meta} text="Continue with Meta" />
+            <ContinueWithButton logo={icons.apple} text="Continue with Apple" />
           </View>
           <View className="border-t border-gray-700 w-full mt-16 flex items-center w-full opacity-70">
             <Text className="mt-1">
@@ -123,7 +128,7 @@ const SignUp = () => {
           </View>
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 };
 

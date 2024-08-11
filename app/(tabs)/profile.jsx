@@ -28,7 +28,6 @@ const formatNumber = (number) => {
 };
 
 const Profile = () => {
-  const navigation = useNavigation();
   const [activeTab, setActiveTab] = useState("Posts");
 
   const connections = {

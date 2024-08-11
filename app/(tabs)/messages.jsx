@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import images from "../../constants/images";
 import { router } from "expo-router"; 
 import { TouchableOpacity } from "react-native";
-
+import { Ionicons } from "@expo/vector-icons"; // or 'react-native-vector-icons/Ionicons'
 const chats = [
   {
     name: "Bayu Adimas",
@@ -114,9 +114,10 @@ const Message = () => {
       </View>
       <View className="px-4">
         <View className="flex flex-row items-center bg-gray-200 rounded-full px-4 pt-2 pb-3 mb-4">
+          <Ionicons name="search" size={20} color="#A0A0A0" className="align-center justify-center items-center"/>
           <TextInput
             placeholder="Search"
-            className="flex-1 text-lg align-items-center"
+            className="ml-3 flex-1 text-lg items-center"
             value={searchQuery}
             onChangeText={handleSearchChange}
           />

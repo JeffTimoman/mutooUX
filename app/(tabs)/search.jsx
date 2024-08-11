@@ -12,12 +12,21 @@ import images from "../../constants/images";
 
 // Custom class to store user information
 class UserInfo {
-  constructor(skills, image_name, distance, address, popularity, skillswap) {
+  constructor(
+    skills,
+    image_name,
+    distance,
+    address,
+    popularity,
+    skillswap,
+    added = false // New property to track if the user has been added
+  ) {
     this.skills = skills;
     this.image_name = image_name;
     this.distance = distance;
     this.address = address;
     this.popularity = popularity;
+    this.added = added; // Initialize as false
   }
 }
 
@@ -46,12 +55,34 @@ const initialUserList = [
     Math.floor(Math.random() * 100) + 1,
     false
   ),
+  new UserInfo(
+    ["Tennis Player", "Basketball Player"],
+    images.userpic5,
+    100,
+    "Pondok Gede, Jakarta Timur",
+    Math.floor(Math.random() * 100) + 1,
+    false
+  ),
+  new UserInfo(
+    ["Tennis Player", "Basketball Player"],
+    images.userpic5,
+    100,
+    "Pondok Gede, Jakarta Timur",
+    Math.floor(Math.random() * 100) + 1,
+    false
+  ),
 ];
 
 const Search = () => {
   const [userList, setUserList] = useState(initialUserList);
   const [filter, setFilter] = useState("All Categories");
+  const [showSkillDropdown, setShowSkillDropdown] = useState(false);
+  const [selectedSkill, setSelectedSkill] = useState("");
 
+  // Extract unique skills from all users
+  const allSkills = [
+    ...new Set(userList.flatMap((user) => user.skills)),
+  ].sort();
   const applyFilter = (filter) => {
     let sortedList;
     switch (filter) {
@@ -67,7 +98,11 @@ const Search = () => {
         sortedList = [...userList].sort((a, b) => b.popularity - a.popularity);
         break;
       case "Skill Swap":
-        sortedList = [...userList].sort((a, b) => a.skillswap - b.skillswap);
+        sortedList = selectedSkill
+          ? initialUserList.filter((user) =>
+              user.skills.includes(selectedSkill)
+            )
+          : initialUserList;
         break;
       default:
         sortedList = initialUserList;
@@ -76,11 +111,22 @@ const Search = () => {
     setFilter(filter);
   };
 
+  const handleAddPerson = (index) => {
+    const updatedUserList = [...userList];
+    updatedUserList[index].added = !updatedUserList[index].added; // Toggle the added state
+    setUserList(updatedUserList);
+  };
+
+  const handleSkillSelect = (skill) => {
+    setSelectedSkill(skill);
+    applyFilter("Skill Swap");
+    setShowSkillDropdown(false); // Hide the dropdown after selecting a skill
+  };
 
   return (
     <View className="bg-white h-full w-full p-0 m-0">
       {/* Search Bar */}
-      <View className="px-4 mt-3">
+      <View className="px-4 mt-3 w-full">
         <View className="flex-row items-center bg-gray-200 px-4 py-2 rounded-l-lg rounded-tr-lg ">
           <TextInput
             placeholder="Search Skill, People, Location..."
@@ -129,22 +175,44 @@ const Search = () => {
             </TouchableOpacity>
 
             {/* Skill Swap Dropdown */}
-            <TouchableOpacity
-              className={`${
-                filter === "Skill Swap"
-                  ? "bg-indigo-500"
-                  : "border border-indigo-500"
-              } px-4 py-2 rounded-lg`}
-              onPress={() => applyFilter("Skill Swap")}
-            >
-              <Text
+            <View>
+              <TouchableOpacity
                 className={`${
-                  filter === "Skill Swap" ? "text-white" : "text-indigo-500"
-                } font-bold`}
+                  filter === "Skill Swap"
+                    ? "bg-indigo-500"
+                    : "border border-indigo-500"
+                } px-4 py-2 rounded-lg`}
+                onPress={() => setShowSkillDropdown(!showSkillDropdown)}
               >
-                Skill Swap
-              </Text>
-            </TouchableOpacity>
+                <Text
+                  className={`${
+                    filter === "Skill Swap" ? "text-white" : "text-indigo-500"
+                  } font-bold`}
+                >
+                  Skill Swap
+                </Text>
+              </TouchableOpacity>
+
+              {/* Dropdown List */}
+              {showSkillDropdown && (
+                <View
+                  className="absolute mt-2 bg-white border border-indigo-500 rounded-lg shadow-lg w-[200px] z-10"
+                  style={{ zIndex: 999, elevation: 5 }}
+                >
+                  <ScrollView>
+                    {allSkills.map((skill, index) => (
+                      <TouchableOpacity
+                        key={index}
+                        className="px-4 py-2 hover:bg-gray-200"
+                        onPress={() => handleSkillSelect(skill)}
+                      >
+                        <Text className="text-gray-800">{skill}</Text>
+                      </TouchableOpacity>
+                    ))}
+                  </ScrollView>
+                </View>
+              )}
+            </View>
 
             {/* Trending People */}
             <TouchableOpacity
@@ -206,7 +274,7 @@ const Search = () => {
       </View>
 
       {/* Users List */}
-      <View>
+      <View className="pb-15 flex-1">
         <ScrollView className="p-2">
           {userList.map((user, index) => (
             <View
@@ -240,7 +308,7 @@ const Search = () => {
                 <View className="flex-row mt-2 items-center">
                   <Ionicons name="bag-outline" size={20} color="black" />
                   <Text className="ml-1 text-gray-600">
-                    {user.skills.join(", ")}
+                    {user.skills[0]} {user.skills.length > 1 ? "and more" : ""}
                   </Text>
                 </View>
                 <View className="flex-row mt-2 items-center pr-5">
@@ -248,7 +316,8 @@ const Search = () => {
                     Saya adalah seorang pemain tennis berpengalaman selama 7
                     tahun ...
                   </Text>
-                  <View
+                  <TouchableOpacity
+                    onPress={() => handleAddPerson(index)} // Handle icon click
                     className="rounded-full p-1"
                     style={{
                       borderWidth: 1,
@@ -256,11 +325,11 @@ const Search = () => {
                     }}
                   >
                     <Ionicons
-                      name="person-add-outline"
+                      name={user.added ? "person-add" : "person-add-outline"} // Use filled icon if added
                       size={20}
-                      color="black"
+                      color={user.added ? "#2f27ce" : "black"} // Change color if added
                     />
-                  </View>
+                  </TouchableOpacity>
                 </View>
               </View>
             </View>

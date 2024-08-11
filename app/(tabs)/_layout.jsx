@@ -27,7 +27,7 @@ const TabLayout = () => {
           tabBarStyle: {
             backgroundColor: "#fff",
 
-            height: 83,
+            height: 100,
           },
         }}
       >
@@ -39,7 +39,7 @@ const TabLayout = () => {
             headerTitle: "MUTOO",
             headerTitleAlign: "left",
             headerBackgroundContainerStyle: {
-              height: 73,
+              height: 100,
               borderBottomColor: "black",
               borderBottomWidth: 0.5,
             },
@@ -56,7 +56,7 @@ const TabLayout = () => {
             headerTitle: "Skill Swap",
             headerTitleAlign: "left",
             headerBackgroundContainerStyle: {
-              height: 70,
+              height: 100,
               borderBottomColor: "black",
               borderBottomWidth: 0.5,
             },
@@ -73,7 +73,7 @@ const TabLayout = () => {
             headerTitle: "Profile",
             headerTitleAlign: "left",
             headerBackgroundContainerStyle: {
-              height: 73,
+              height: 100,
               borderBottomColor: "black",
               borderBottomWidth: 0.5,
             },
@@ -90,7 +90,7 @@ const TabLayout = () => {
             headerTitle: "Messages",
             headerTitleAlign: "left",
             headerBackgroundContainerStyle: {
-              height: 73,
+              height: 100,
               borderBottomColor: "black",
               borderBottomWidth: 0.5,
             },
@@ -107,7 +107,7 @@ const TabLayout = () => {
             headerTitle: "Settings",
             headerTitleAlign: "left",
             headerBackgroundContainerStyle: {
-              height: 73,
+              height: 100,
               borderBottomColor: "black",
               borderBottomWidth: 0.5,
             },

@@ -6,11 +6,13 @@ import {
   ScrollView,
   TextInput,
   TouchableOpacity,
+  KeyboardAvoidingView,
+  Platform,
 } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import images from "../../constants/images";
 import icons from "../../constants/icons";
-import {router} from "expo-router";
+import { router } from "expo-router";
 
 const MessageDetail = () => {
   // State to manage messages and the current input
@@ -84,92 +86,100 @@ const MessageDetail = () => {
   };
 
   return (
-    <View className="flex-1 bg-white p-4 w-full">
-      {/* Header */}
-      <View className="mt-6">
-        <TouchableOpacity
-          onPress={() => router.back()}
-          className="absolute left-0 p-4 z-10"
-        >
-          <FontAwesome name="chevron-left" size={24} color="black" />
-        </TouchableOpacity>
-        <View className="flex-column items-center justify-between mb-4">
-          <Text className="text-lg font-bold">Bayu Adimas</Text>
-          <Text className="text-sm text-gray-500">Tennis Player</Text>
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === "ios" ? "padding" : null}
+      keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0}
+      className="flex-1 bg-white h-full w-full"
+    >
+      <View className="flex-1 bg-white p-4 w-full">
+        {/* Header */}
+        <View className="mt-10">
+          <TouchableOpacity
+            onPress={() => router.back()}
+            className="absolute left-0 p-4 z-10"
+          >
+            <FontAwesome name="chevron-left" size={24} color="black" />
+          </TouchableOpacity>
+          <View className="flex-column items-center justify-between mb-4">
+            <Text className="text-lg font-bold">Bayu Adimas</Text>
+            <Text className="text-sm text-gray-500">Tennis Player</Text>
+          </View>
         </View>
-      </View>
 
-      {/* Messages */}
-      <ScrollView className="flex-1">
-        <View className="space-y-3">
-          {/* Messages */}
-          {messages.map((message) => (
-            <View
-              key={message.id}
-              className={`flex-row ${
-                message.sender === "me" ? "justify-end" : ""
-              }`}
-            >
-              {message.sender === "other" && (
-                <Image
-                  source={images.userpic3}
-                  className="h-8 w-8 rounded-full"
-                />
-              )}
+        {/* Messages */}
+        <ScrollView className="flex-1">
+          <View className="space-y-3">
+            {/* Messages */}
+            {messages.map((message) => (
               <View
-                className={`flex-row items-center ${
-                  message.sender === "me" ? "ml-2" : ""
+                key={message.id}
+                className={`flex-row ${
+                  message.sender === "me" ? "justify-end" : ""
                 }`}
               >
-                {message.sender === "me" && (
-                  <Text className="text-gray-500 text-xs mr-2">
-                    {message.timestamp}
-                  </Text>
+                {message.sender === "other" && (
+                  <Image
+                    source={images.userpic3}
+                    className="h-8 w-8 rounded-full"
+                  />
                 )}
                 <View
-                  className={`bg-${
-                    message.sender === "me" ? "main" : "gray-300"
-                  } rounded-lg p-2 max-w-[70vw]`}
+                  className={`flex-row items-center ${
+                    message.sender === "me" ? "ml-2" : ""
+                  }`}
                 >
-                  <Text
-                    className={`${message.sender === "me" ? "text-white" : ""}`}
+                  {message.sender === "me" && (
+                    <Text className="text-gray-500 text-xs mr-2">
+                      {message.timestamp}
+                    </Text>
+                  )}
+                  <View
+                    className={`bg-${
+                      message.sender === "me" ? "main" : "gray-300"
+                    } rounded-lg p-2 max-w-[70vw]`}
                   >
-                    {message.text}
-                  </Text>
+                    <Text
+                      className={`${
+                        message.sender === "me" ? "text-white" : ""
+                      }`}
+                    >
+                      {message.text}
+                    </Text>
+                  </View>
+                  {message.sender === "other" && (
+                    <Text className="text-gray-500 text-xs ml-2">
+                      {message.timestamp}
+                    </Text>
+                  )}
                 </View>
-                {message.sender === "other" && (
-                  <Text className="text-gray-500 text-xs ml-2">
-                    {message.timestamp}
-                  </Text>
-                )}
               </View>
-            </View>
-          ))}
+            ))}
+          </View>
+        </ScrollView>
 
-        </View>
-      </ScrollView>
-
-      {/* Footer */}
-      <View className="flex-row items-center space-x-3 p-2 bg-gray-100 rounded-3xl">
-        <TouchableOpacity>
-          <Image source={icons.mail_img} className="h-5 w-5 text-gray-500" />
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Image source={icons.mail_link} className="h-4 w-4 text-gray-500" />
-        </TouchableOpacity>
-        <TextInput
-          placeholder="Write your message..."
-          value={input}
-          onChangeText={setInput}
-          className="flex-1 p-2 rounded-lg"
-        />
-        <View className="bg-main rounded-2xl justify-center items-center flex w-7 h-7">
-          <TouchableOpacity onPress={handleSend}>
-            <Image source={icons.mail_send} className="h-5 w-5 mt-2" />
+        {/* Footer */}
+        <View className="flex-row items-center space-x-3 p-3 bg-gray-100 rounded-3xl">
+          <TouchableOpacity>
+            <Image source={icons.mail_img} className="h-5 w-5 text-gray-500" />
           </TouchableOpacity>
+          <TouchableOpacity>
+            <Image source={icons.mail_link} className="h-4 w-4 text-gray-500" />
+          </TouchableOpacity>
+          <TextInput
+            placeholder="Write your message..."
+            value={input}
+            onChangeText={setInput}
+            className="flex-1 p-2 rounded-lg"
+          />
+          <View className="bg-main rounded-2xl justify-center items-center flex w-7 h-7">
+            <TouchableOpacity onPress={handleSend}>
+              <Image source={icons.mail_send} className="h-5 w-5 mt-2" />
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 
