@@ -7,7 +7,6 @@ import images from "../../constants/images";
 import icons from "../../constants/icons";
 import Post from "../../constants/classes/Post";
 import { router } from "expo-router";
-import AccountInformation from "../(settings)/accountInformation";
 
 const StyledView = styled(View);
 const StyledText = styled(Text);

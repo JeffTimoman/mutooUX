@@ -1,6 +1,8 @@
 import { View, Text, ScrollView, TextInput, Image } from "react-native";
 import React, { useState } from "react";
 import images from "../../constants/images";
+import { router } from "expo-router"; 
+import { TouchableOpacity } from "react-native";
 
 const chats = [
   {
@@ -97,6 +99,11 @@ const Message = () => {
     chat.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  // Navigate to MessageDetail when a chat is clicked
+  const handleChatPress = () => {
+    router.push("/messagedetail");
+  };
+
   return (
     <View className="flex-1 bg-white">
       <View className="flex flex-row align-center mt-12 p-5">
@@ -118,24 +125,26 @@ const Message = () => {
       <ScrollView className="flex-1 mt-1">
         <Text className="px-4 text-xl mb-1"> Chats</Text>
         {filteredChats.map((chat, index) => (
-          <View key={index} className="flex flex-row items-center mb-4 px-4">
-            <Image
-              source={chat.image}
-              className="w-12 h-12 rounded-full mr-4"
-            />
-            <View className="flex-1">
-              <Text className="text-lg font-semibold">{chat.name}</Text>
-              <Text className="text-gray-500">{chat.message}</Text>
+          <TouchableOpacity key={index} onPress={handleChatPress}>
+            <View className="flex flex-row items-center mb-4 px-4">
+              <Image
+                source={chat.image}
+                className="w-12 h-12 rounded-full mr-4"
+              />
+              <View className="flex-1">
+                <Text className="text-lg font-semibold">{chat.name}</Text>
+                <Text className="text-gray-500">{chat.message}</Text>
+              </View>
+              <View className="items-end">
+                <Text className="text-gray-400">{chat.time}</Text>
+                {chat.unread && (
+                  <View className="bg-blue-500 rounded-full w-6 h-6 flex items-center justify-center mt-1">
+                    <Text className="text-white text-xs">{chat.unread}</Text>
+                  </View>
+                )}
+              </View>
             </View>
-            <View className="items-end">
-              <Text className="text-gray-400">{chat.time}</Text>
-              {chat.unread && (
-                <View className="bg-blue-500 rounded-full w-6 h-6 flex items-center justify-center mt-1">
-                  <Text className="text-white text-xs">{chat.unread}</Text>
-                </View>
-              )}
-            </View>
-          </View>
+          </TouchableOpacity>
         ))}
       </ScrollView>
     </View>

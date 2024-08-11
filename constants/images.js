@@ -15,6 +15,8 @@ import artemians from "../assets/images/artemians.jpg";
 import cibitung from "../assets/images/cibitung.jpg";
 import josh from "../assets/images/josh.jpg";
 import helpcarousel from "../assets/images/helpcarousel.png";
+import userpic4 from "../assets/images/userpic4.png";
+import userpic5 from "../assets/images/userpic5.png";
 
 export default {
   logo,
@@ -34,4 +36,6 @@ export default {
   artemians,
   cibitung,
   josh,
+  userpic4,
+  userpic5,
 };

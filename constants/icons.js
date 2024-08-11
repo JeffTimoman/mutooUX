@@ -22,7 +22,9 @@ import shield from "../assets/icons/shield.png";
 import bell from "../assets/icons/bell.png";
 import question from "../assets/icons/question.png";
 import info from "../assets/icons/info.png";
-
+import mail_send from "../assets/icons/mail-send.png";
+import mail_img from "../assets/icons/mail-img.png";
+import mail_link from "../assets/icons/mail-link.png";
 export default {
   bookmark,
   eye_hide,
@@ -48,4 +50,7 @@ export default {
   bell,
   question,
   info,
+  mail_send,
+  mail_img,
+  mail_link,
 };

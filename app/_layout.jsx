@@ -37,6 +37,7 @@ const RootLayout = () => {
       <Stack.Screen name="(connections)" options={{ headerShown: false }} />
       <Stack.Screen name="(settings)" options={{ headerShown: false }} />
       <Stack.Screen name="index" options={{ headerShown: false }} />
+      <Stack.Screen name="(messages)" options={{ headerShown: false }} />
     </Stack>
   );
 };
