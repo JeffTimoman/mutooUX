@@ -194,24 +194,6 @@ const Search = () => {
               </TouchableOpacity>
 
               {/* Dropdown List */}
-              {showSkillDropdown && (
-                <View
-                  className="absolute mt-2 bg-white border border-indigo-500 rounded-lg shadow-lg w-[200px] z-10"
-                  style={{ zIndex: 999, elevation: 5 }}
-                >
-                  <ScrollView>
-                    {allSkills.map((skill, index) => (
-                      <TouchableOpacity
-                        key={index}
-                        className="px-4 py-2 hover:bg-gray-200"
-                        onPress={() => handleSkillSelect(skill)}
-                      >
-                        <Text className="text-gray-800">{skill}</Text>
-                      </TouchableOpacity>
-                    ))}
-                  </ScrollView>
-                </View>
-              )}
             </View>
 
             {/* Trending People */}
@@ -272,6 +254,24 @@ const Search = () => {
           </View>
         </ScrollView>
       </View>
+      {showSkillDropdown && (
+        <View
+          className="absolute mt-2 bg-white border border-indigo-500 rounded-lg shadow-lg w-[200px] mt-36 ml-24"
+          style={{ zIndex: 999, elevation: 5 }}
+        >
+          <ScrollView>
+            {allSkills.map((skill, index) => (
+              <TouchableOpacity
+                key={index}
+                className="px-4 py-2 hover:bg-gray-200"
+                onPress={() => handleSkillSelect(skill)}
+              >
+                <Text className="text-gray-800">{skill}</Text>
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
+        </View>
+      )}
 
       {/* Users List */}
       <View className="pb-15 flex-1">
