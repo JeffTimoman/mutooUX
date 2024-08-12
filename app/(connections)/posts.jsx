@@ -384,7 +384,7 @@ const Posts = () => {
         <StyledText className="text-2xl font-bold mt-12">
           Nick Mathew
         </StyledText>
-        <StyledText className="text-gray-600">@nickmathew</StyledText>
+        <StyledText className="text-gray-600">{`@niickmathew`}</StyledText>
         <StyledView className="flex-row mt-2">
           <StyledText className="text-gray-700 mr-5">
             <MaterialIcons name="calendar-today" size={16} color="black" />{" "}
