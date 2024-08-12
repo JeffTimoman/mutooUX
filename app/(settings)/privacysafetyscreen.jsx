@@ -74,8 +74,8 @@ const PrivacySafetyScreen = () => {
             <Switch
               value={allowProfileSharing}
               onValueChange={(value) => setAllowProfileSharing(value)}
-              trackColor={{ false: "#767577", true: "#81b0ff" }}
-              thumbColor={allowProfileSharing ? "#f5dd4b" : "#f4f3f4"}
+              trackColor={{ false: "#f4f3f4", true: "#2F27CE" }}
+              thumbColor={isPrivateAccount ? "#f4f3f4" : "#f4f3f4"}
             />
           </StyledView>
 

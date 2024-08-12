@@ -28,16 +28,16 @@ const formatNumber = (number) => {
   }
 };
 
-const Profile = () => {
+const Posts = () => {
   const [activeTab, setActiveTab] = useState("Posts");
 
   const connections = {
-    following: 1403,
-    followers: 2400000,
-    swappers: 17,
+    following: 1260,
+    followers: 1333,
+    swappers: 32,
   };
 
-  const posts = [
+  const likedPosts = [
     new Post(
       "Azizi Shafaa A.",
       "aziziasadel_",
@@ -80,7 +80,7 @@ const Profile = () => {
     ),
   ];
 
-  const likedPosts = [
+  const posts = [
     new Post(
       "Nick Mathew",
       "niickmathew",
@@ -230,18 +230,14 @@ const Profile = () => {
           source={images[post.getProfile()]}
         />
         <StyledView className="flex-col ml-4 pt-1">
-          <TouchableOpacity
-            onPress={() => router.push({ pathname: "posts", params: {} })}
-          >
-            <StyledView className="flex-row items-center">
-              <StyledText className="font-bold text-base">
-                {post.getName()}
-              </StyledText>
-              <StyledText className="font-semibold text-base ml-2 opacity-50">
-                @{post.getUsername()}
-              </StyledText>
-            </StyledView>
-          </TouchableOpacity>
+          <StyledView className="flex-row items-center">
+            <StyledText className="font-bold text-base">
+              {post.getName()}
+            </StyledText>
+            <StyledText className="font-semibold text-base ml-2 opacity-50">
+              @{post.getUsername()}
+            </StyledText>
+          </StyledView>
           <StyledText className="text-gray-600 mt-1 w-full max-w-[75vw] text-base">
             {post.getContent()}{" "}
           </StyledText>
@@ -368,13 +364,10 @@ const Profile = () => {
   return (
     <>
       <StyledView className="relative">
-        <StyledImage
-          source={images.profile_background}
-          className="w-full h-40"
-        />
+        <StyledImage source={images.batamis} className="w-full h-40" />
         <StyledView className="absolute top-24 mt-2 left-5 flex-row items-center justify-between w-full">
           <StyledImage
-            source={images.zeepic}
+            source={images.nick}
             className="w-24 h-24 rounded-full border-4 border-white"
           />
           {/* <TouchableOpacity
@@ -389,16 +382,16 @@ const Profile = () => {
       </StyledView>
       <StyledView className="px-5">
         <StyledText className="text-2xl font-bold mt-12">
-          Azizi Shafaa A.
+          Nick Mathew
         </StyledText>
-        <StyledText className="text-gray-600">@aziziasadel_</StyledText>
+        <StyledText className="text-gray-600">@nickmathew</StyledText>
         <StyledView className="flex-row mt-2">
           <StyledText className="text-gray-700 mr-5">
             <MaterialIcons name="calendar-today" size={16} color="black" />{" "}
-            Joined May 14th 2018
+            Joined March 14th 1998
           </StyledText>
           <StyledText className="text-gray-700">
-            <Ionicons name="star" size={16} color="black" /> 5 Skills Mastered
+            <Ionicons name="star" size={16} color="black" /> 14 Skills Mastered
           </StyledText>
         </StyledView>
 
@@ -521,4 +514,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default Posts;
