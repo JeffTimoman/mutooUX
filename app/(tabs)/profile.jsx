@@ -365,6 +365,7 @@ const Profile = () => {
       </TouchableOpacity>
     </StyledView>
   );
+
   return (
     <>
       <StyledView className="relative">
@@ -377,14 +378,6 @@ const Profile = () => {
             source={images.zeepic}
             className="w-24 h-24 rounded-full border-4 border-white"
           />
-          {/* <TouchableOpacity
-            className="bg-gray-200 py-2 px-4 rounded-full mt-20 mr-10"
-            onPress={() => accinfopage && router.push(accinfopage)}
-          >
-            <StyledText className="text-gray-700 font-bold">
-              Edit Profile
-            </StyledText>
-          </TouchableOpacity> */}
         </StyledView>
       </StyledView>
       <StyledView className="px-5">
@@ -517,6 +510,14 @@ const Profile = () => {
         )}
         {activeTab === "Likes" && renderLikes()}
       </ScrollView>
+
+      {/* Floating Button */}
+      <TouchableOpacity
+        className="absolute bottom-8 right-8 bg-blue-500 w-14 h-14 rounded-full items-center justify-center"
+        onPress={() => router.push({ pathname: "postscreen", params: {} })}
+      >
+        <Ionicons name="add" size={30} color="white" />
+      </TouchableOpacity>
     </>
   );
 };
