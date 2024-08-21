@@ -9,6 +9,9 @@ const ConnectionsLayout = () => {
     <Stack>
       {/* This will render `connections.jsx` as the default screen for this stack */}
       <Stack.Screen name="connections" options={{ headerShown: true }} />
+      {/* This will render `postscreen.jsx` when the route is `connections/post` */}
+      <Stack.Screen name="posts" options={{ headerShown: false }} />
+      <Stack.Screen name="postscreen" options={{ headerShown: false }} />
     </Stack>
   );
 };

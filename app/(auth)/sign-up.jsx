@@ -1,4 +1,12 @@
-import { View, Text, ScrollView, Image, Alert, KeyboardAvoidingView, Platform} from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  Image,
+  Alert,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import images from "../../constants/images";
